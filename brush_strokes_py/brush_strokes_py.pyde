@@ -28,11 +28,11 @@ def init_new_stroke():
 
   # select random start point for new brushstroke
   x1 = int(random(width))
-  y1 = int(random(width))
+  y1 = int(random(height))
 
   while visited_coords.get(str(x1) + ',' + str(y1)) == True:
     x1 = int(random(width))
-    y1 = int(random(width))
+    y1 = int(random(height))
 
   # get color of brushstroke for that location
   global col
