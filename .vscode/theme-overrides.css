@@ -1,0 +1,51 @@
+.mtk3,
+.mtk6 {
+  text-shadow: 0 0 2px #001716, 0 0 5px #03edf933, 0 0 10px #ffff6633;
+}
+
+.mtk3 {
+  color: #495495;
+}
+
+.mtk8 {
+  text-shadow: 0 0 2px #100c0f, 0 0 3px #ffaa0066, 0 0 5px #ffaa0066, 0 0 10px #ffaa0066;
+}
+
+.mtk7,
+.mtk9 {
+  text-shadow: 0 0 2px #393a33, 0 0 35px #ffffff66, 0 0 10px #fc199a66, 0 0 2px #fc199a66;
+}
+
+/* Add the subtle gradient to the editor background */
+.editor .content,
+.monaco-editor {
+  /* background-image: linear-gradient(to bottom, #200933 75%, #3d0b4366); */
+  background-image: none;
+  background-color: #200933 !important;
+}
+
+/* Add subtle background image */
+.editor-group-container:after {
+  /* opacity: 0.5; */
+  display: none;
+}
+
+.monaco-editor:before,
+.editor-group-container:before {
+  display: none;
+}
+
+.minimap-slider {
+  background: #49549533 !important;
+}
+
+.monaco-workbench .activitybar > .content .monaco-action-bar .action-item.checked::after {
+  width: 3px;
+  background: #fc28a8 !important;
+}
+
+/* Active tab stripe */
+.monaco-workbench .part.editor > .content .editor-group-container > .title .tabs-container > .tab.active::before {
+  height: 3px;
+  background: #fc28a8 !important;
+}
