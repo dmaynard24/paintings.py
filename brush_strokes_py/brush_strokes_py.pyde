@@ -1,41 +1,48 @@
 # source image. swap this out.
-img = loadImage("C:\\repos\\processing\\brush_strokes_py\\assets\\img\\tokyo.jpg")
+img = loadImage("C:\\repos\\processing\\brush_strokes_py\\assets\\img\\tokyo-paint.jpg")
 width = img.width
 height = img.height
+area = width * height
 
 x1 = y1 = x2 = y2 = x3 = y3 = x4 = y4 = 0
 
 col = None
-max_stroke_length = 32
-bristle_thickness = 3
-stroke_width = 8
+max_stroke_length = 12
+bristle_thickness = 2
+stroke_width = 6
 bristle_count = 6
 
 counter = 0
 
-visited_coords = {}
+color_counts = {}
+most_popular_color = None
+most_popular_color_count = 0;
+unvisited_nodes = []
 for x in range(1, width + 1):
   for y in range(1, height + 1):
-    visited_coords[str(x) + ',' + str(y)] = False
+    unvisited_nodes.append([x, y])
+    node_color = img.get(x, y)
+    if color_counts.get(node_color) is not None:
+      color_counts[node_color] += 1
+      if color_counts.get(node_color) > most_popular_color_count:
+        most_popular_color = node_color
+        most_popular_color_count = color_counts.get(node_color)
+    else:
+      color_counts[node_color] = 1
 
 def setup():  
   size(width, height) # set size to the size of your source image
-  background(255)
+  background(most_popular_color)
   init_new_stroke()
 
 def init_new_stroke():
-  global x1, y1, x2, y2, x3, y3, x4, y4, visited_coords, col
+  global x1, y1, x2, y2, x3, y3, x4, y4, unvisited_nodes, col
 
   # select random start point for new brushstroke
-  x1 = int(random(width))
-  y1 = int(random(height))
-
-  while visited_coords.get(str(x1) + ',' + str(y1)) == True:
-    x1 = int(random(width))
-    y1 = int(random(height))
+  random_node_index = int(random(1, len(unvisited_nodes)))
+  x1, y1 = unvisited_nodes[random_node_index]
 
   # get color of brushstroke for that location
-  global col
   col = img.get(x1, y1)
   
   # offset bezier points by some small amount
@@ -47,15 +54,33 @@ def init_new_stroke():
   x4 = x1 + random(-s_length, s_length)
   y4 = y1 + random(-s_length, s_length)
 
-  # mark coord as visited
-  visited_coords[str(x1) + ',' + str(y1)] = True
+  # mark node (and surrounding nodes) as 'visited'
+  try:
+    del unvisited_nodes[random_node_index - width]
+  except:
+    print('error: ' + str(random_node_index - width) + ' out of range')
+  try:
+    del unvisited_nodes[random_node_index - 1]
+  except:
+    print('error: ' + str(random_node_index - 1) + ' out of range')
+  del unvisited_nodes[random_node_index]
+  try:
+    del unvisited_nodes[random_node_index + 1]
+  except:
+    print('error: ' + str(random_node_index + 1) + ' out of range ' + str(len(unvisited_nodes)))
+  try:
+    del unvisited_nodes[random_node_index + width]
+  except:
+    print('error: ' + str(random_node_index + width) + ' out of range ' + str(len(unvisited_nodes)))
+
 
 def draw():
   global col, bristle_thickness, x1, y1, x2, y2, x3, y3, x4, y4, counter
 
-  if col is not None and False in visited_coords.values():
+  if col is not None and len(unvisited_nodes) > 0:
+    print(len(unvisited_nodes))
     noFill()
-    stroke(col, 64) # add alpha for painterly look
+    stroke(col, 66) # add alpha for painterly look
     col = mutate_color(col) #slightly mutate the color of each bristle
     bristle_thickness = random(1, 4)
     strokeWeight(bristle_thickness)
@@ -77,6 +102,7 @@ def draw():
       init_new_stroke()
   else:
     print('done!')
+    noLoop()
 
 def mutate_color(c):
   mr = 10 # mutation rate
