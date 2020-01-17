@@ -1,5 +1,9 @@
+from datetime import date
+
 # source image. swap this out.
-img = loadImage("C:\\repos\\processing\\brush_strokes_py\\assets\\img\\tokyo-paint.jpg")
+file_name = 'tokyo-paint'
+img = loadImage('C:\\repos\\processing\\brush_strokes_py\\assets\\img\\' +
+                str(file_name) + '.jpg')
 width = img.width
 height = img.height
 area = width * height
@@ -16,7 +20,7 @@ counter = 0
 
 color_counts = {}
 most_popular_color = None
-most_popular_color_count = 0;
+most_popular_color_count = 0
 unvisited_nodes = []
 for x in range(1, width + 1):
   for y in range(1, height + 1):
@@ -30,21 +34,23 @@ for x in range(1, width + 1):
     else:
       color_counts[node_color] = 1
 
-def setup():  
-  size(width, height) # set size to the size of your source image
+
+def setup():
+  size(width, height)  # set size to the size of your source image
   background(most_popular_color)
   init_new_stroke()
+
 
 def init_new_stroke():
   global x1, y1, x2, y2, x3, y3, x4, y4, unvisited_nodes, col
 
   # select random start point for new brushstroke
-  random_node_index = int(random(1, len(unvisited_nodes)))
+  random_node_index = int(random(len(unvisited_nodes)))
   x1, y1 = unvisited_nodes[random_node_index]
 
   # get color of brushstroke for that location
   col = img.get(x1, y1)
-  
+
   # offset bezier points by some small amount
   s_length = abs(randomGaussian() * max_stroke_length)
   x2 = x1 + random(-s_length, s_length)
@@ -55,34 +61,40 @@ def init_new_stroke():
   y4 = y1 + random(-s_length, s_length)
 
   # mark node (and surrounding nodes) as 'visited'
-  try:
-    del unvisited_nodes[random_node_index - width]
-  except:
-    print('error: ' + str(random_node_index - width) + ' out of range')
-  try:
-    del unvisited_nodes[random_node_index - 1]
-  except:
-    print('error: ' + str(random_node_index - 1) + ' out of range')
-  del unvisited_nodes[random_node_index]
-  try:
-    del unvisited_nodes[random_node_index + 1]
-  except:
-    print('error: ' + str(random_node_index + 1) + ' out of range ' + str(len(unvisited_nodes)))
-  try:
-    del unvisited_nodes[random_node_index + width]
-  except:
-    print('error: ' + str(random_node_index + width) + ' out of range ' + str(len(unvisited_nodes)))
+  if random_node_index - width > -1:
+    unvisited_nodes.pop(random_node_index - width)
+  else:
+    print('attempted to pop: ' + str(random_node_index - width) +
+          ' out of range')
+  if random_node_index - 1 > -1:
+    unvisited_nodes.pop(random_node_index - 1)
+  else:
+    print('attempted to pop: ' + str(random_node_index - 1) + ' out of range')
+  if random_node_index > -1 and random_node_index < len(unvisited_nodes):
+    unvisited_nodes.pop(random_node_index)
+  else:
+    print('attempted to pop: ' + str(random_node_index) + ' out of range')
+  if random_node_index + 1 < len(unvisited_nodes):
+    unvisited_nodes.pop(random_node_index + 1)
+  else:
+    print('attempted to pop: ' + str(random_node_index + 1) + ' out of range')
+  if random_node_index + width < len(unvisited_nodes):
+    unvisited_nodes.pop(random_node_index + width)
+  else:
+    print('attempted to pop: ' + str(random_node_index + width) +
+          ' out of range')
 
 
 def draw():
   global col, bristle_thickness, x1, y1, x2, y2, x3, y3, x4, y4, counter
 
   if col is not None and len(unvisited_nodes) > 0:
+    print(len(unvisited_nodes))
     if len(unvisited_nodes) < area / 2:
       saveFrame('middle.jpg')
     noFill()
-    stroke(col, 66) # add alpha for painterly look
-    col = mutate_color(col) #slightly mutate the color of each bristle
+    stroke(col, 66)  # add alpha for painterly look
+    col = mutate_color(col)  #slightly mutate the color of each bristle
     bristle_thickness = random(1, 4)
     strokeWeight(bristle_thickness)
     bezier(x1, y1, x2, y2, x3, y3, x4, y4)
@@ -106,8 +118,9 @@ def draw():
     saveFrame('final.jpg')
     noLoop()
 
+
 def mutate_color(c):
-  mr = 10 # mutation rate
+  mr = 10  # mutation rate
   r = red(c)
   g = green(c)
   b = blue(c)
@@ -120,3 +133,8 @@ def mutate_color(c):
   b = constrain(b, 0, 255)
 
   return color(r, g, b)
+
+
+def mouseClicked():
+  saveFrame('frames/' + str(file_name) + '/' + str(date.today()) + '/frame-' +
+            str(frameCount) + '.jpg')
