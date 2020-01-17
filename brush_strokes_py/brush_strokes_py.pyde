@@ -1,7 +1,7 @@
 from datetime import date
 
 # source image. swap this out.
-file_name = 'tokyo-paint'
+file_name = 'beach'
 img = loadImage('C:\\repos\\processing\\brush_strokes_py\\assets\\img\\' +
                 str(file_name) + '.jpg')
 width = img.width
@@ -89,7 +89,7 @@ def draw():
   global col, bristle_thickness, x1, y1, x2, y2, x3, y3, x4, y4, counter
 
   if col is not None and len(unvisited_nodes) > 0:
-    print(len(unvisited_nodes))
+    # print(len(unvisited_nodes))
     if len(unvisited_nodes) < area / 2:
       saveFrame('middle.jpg')
     noFill()
