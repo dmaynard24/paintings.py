@@ -78,7 +78,8 @@ def draw():
   global col, bristle_thickness, x1, y1, x2, y2, x3, y3, x4, y4, counter
 
   if col is not None and len(unvisited_nodes) > 0:
-    print(len(unvisited_nodes))
+    if len(unvisited_nodes) < area / 2:
+      saveFrame('middle.jpg')
     noFill()
     stroke(col, 66) # add alpha for painterly look
     col = mutate_color(col) #slightly mutate the color of each bristle
@@ -102,6 +103,7 @@ def draw():
       init_new_stroke()
   else:
     print('done!')
+    saveFrame('final.jpg')
     noLoop()
 
 def mutate_color(c):
