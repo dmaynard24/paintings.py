@@ -115,7 +115,7 @@ def draw():
     if counter % bristle_count == 0:
       init_new_stroke()
   else:
-    print('done!')
+    # done
     saveFrame('final.jpg')
     noLoop()
 
