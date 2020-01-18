@@ -1,10 +1,10 @@
-import os
 from datetime import date
 
-root_dir = os.path.abspath(os.path.dirname(__file__))
+# print(dataPath(""))
+
 # source image. swap this out.
-file_name = 'beach'
-img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
+file_name = 'tokyo'
+img = loadImage('assets\\img\\' + str(file_name) + '.jpg')
 width = img.width
 height = img.height
 area = width * height

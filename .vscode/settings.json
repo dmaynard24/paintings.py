@@ -4,7 +4,7 @@
     "editor.formatOnSave": false
   },
   "editor.tabSize": 2,
-  "python.pythonPath": "C:\\Users\\dmaynard\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+  "python.pythonPath": "C:\\Users\\davem\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.formatting.provider": "yapf",
