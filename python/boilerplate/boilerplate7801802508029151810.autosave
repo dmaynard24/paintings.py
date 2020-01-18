@@ -1,0 +1,48 @@
+import os
+from datetime import date
+
+root_dir = os.path.abspath(os.path.dirname(__file__))
+# source image. swap this out.
+file_name = 'tokyo'
+img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
+width = img.width
+height = img.height
+area = width * height
+
+x1 = y1 = x2 = y2 = x3 = y3 = x4 = y4 = 0
+
+col = None
+max_stroke_length = 12
+bristle_thickness = 2
+stroke_width = 6
+bristle_count = 6
+
+counter = 0
+
+unvisited_nodes = []
+
+
+def setup():
+  size(width, height)  # set size to the size of your source image
+
+  color_counts = {}
+  most_popular_color = None
+  most_popular_color_count = 0
+  for x in range(1, width + 1):
+    for y in range(1, height + 1):
+      unvisited_nodes.append([x, y])
+      node_color = img.get(x, y)
+      stroke(node_color)
+      point(x, y)
+      if color_counts.get(node_color) is not None:
+        color_counts[node_color] += 1
+        if color_counts.get(node_color) > most_popular_color_count:
+          most_popular_color = node_color
+          most_popular_color_count = color_counts.get(node_color)
+      else:
+        color_counts[node_color] = 1
+
+
+def mouseClicked():
+  saveFrame('frames/' + str(file_name) + '/' + str(date.today()) + '/frame-' +
+            str(frameCount) + '.jpg')
