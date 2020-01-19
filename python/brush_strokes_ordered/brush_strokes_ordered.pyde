@@ -10,15 +10,34 @@ height = img.height
 
 x = y = 1
 
+node_colors = {}
+
 
 def setup():
   size(width, height)  # set size to the size of your source image
+  frameRate(240)
+
+  color_counts = {}
+  most_popular_color = None
+  most_popular_color_count = 0
+  for x in range(1, width + 1):
+    for y in range(1, height + 1):
+      node_color = img.get(x, y)
+      node_colors[str(x) + ',' + str(y)] = node_color
+      if color_counts.get(node_color) is not None:
+        color_counts[node_color] += 1
+        if color_counts.get(node_color) > most_popular_color_count:
+          most_popular_color = node_color
+          most_popular_color_count = color_counts.get(node_color)
+      else:
+        color_counts[node_color] = 1
+  background(most_popular_color)
 
 
 def draw():
   global x, y
 
-  node_color = img.get(x, y)
+  node_color = node_colors.get(str(x) + ',' + str(y))
   stroke(node_color)
   point(x, y)
 

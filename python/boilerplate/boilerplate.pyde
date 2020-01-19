@@ -13,6 +13,7 @@ x = y = 1
 
 def setup():
   size(width, height)  # set size to the size of your source image
+  frameRate(240)
 
 
 def draw():

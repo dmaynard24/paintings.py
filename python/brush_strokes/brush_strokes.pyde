@@ -24,6 +24,7 @@ unvisited_nodes = []
 
 def setup():
   size(width, height)  # set size to the size of your source image
+  frameRate(240)
 
   color_counts = {}
   most_popular_color = None
