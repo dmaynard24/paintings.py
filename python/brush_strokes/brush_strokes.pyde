@@ -19,26 +19,28 @@ bristle_count = 6
 
 counter = 0
 
-color_counts = {}
-most_popular_color = None
-most_popular_color_count = 0
 unvisited_nodes = []
-for x in range(1, width + 1):
-  for y in range(1, height + 1):
-    unvisited_nodes.append([x, y])
-    node_color = img.get(x, y)
-    if color_counts.get(node_color) is not None:
-      color_counts[node_color] += 1
-      if color_counts.get(node_color) > most_popular_color_count:
-        most_popular_color = node_color
-        most_popular_color_count = color_counts.get(node_color)
-    else:
-      color_counts[node_color] = 1
 
 
 def setup():
   size(width, height)  # set size to the size of your source image
+
+  color_counts = {}
+  most_popular_color = None
+  most_popular_color_count = 0
+  for x in range(1, width + 1):
+    for y in range(1, height + 1):
+      unvisited_nodes.append([x, y])
+      node_color = img.get(x, y)
+      if color_counts.get(node_color) is not None:
+        color_counts[node_color] += 1
+        if color_counts.get(node_color) > most_popular_color_count:
+          most_popular_color = node_color
+          most_popular_color_count = color_counts.get(node_color)
+      else:
+        color_counts[node_color] = 1
   background(most_popular_color)
+
   init_new_stroke()
 
 
@@ -90,7 +92,6 @@ def draw():
   global col, bristle_thickness, x1, y1, x2, y2, x3, y3, x4, y4, counter
 
   if col is not None and len(unvisited_nodes) > 0:
-    # print(len(unvisited_nodes))
     if len(unvisited_nodes) < area / 2:
       saveFrame('middle.jpg')
     noFill()
