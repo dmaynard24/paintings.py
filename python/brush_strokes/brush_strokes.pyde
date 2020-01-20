@@ -2,8 +2,10 @@ import os
 from datetime import date
 
 root_dir = os.path.abspath(os.path.dirname(__file__))
+
 # source image. swap this out.
-file_name = 'beach'
+file_name = 'rodeo'
+saved_frames_path = 'frames/' + str(file_name) + '/' + str(date.today())
 img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
 width = img.width
 height = img.height
@@ -94,7 +96,7 @@ def draw():
 
   if col is not None and len(unvisited_nodes) > 0:
     if len(unvisited_nodes) < area / 2:
-      saveFrame('middle.jpg')
+      saveFrame(saved_frames_path + '/middle-frame.jpg')
     noFill()
     stroke(col, 66)  # add alpha for painterly look
     col = mutate_color(col)  #slightly mutate the color of each bristle
@@ -118,7 +120,7 @@ def draw():
       init_new_stroke()
   else:
     # done
-    saveFrame('final.jpg')
+    saveFrame(saved_frames_path + '/final-frame.jpg')
     noLoop()
 
 
@@ -139,5 +141,4 @@ def mutate_color(c):
 
 
 def mouseClicked():
-  saveFrame('frames/' + str(file_name) + '/' + str(date.today()) + '/frame-' +
-            str(frameCount) + '.jpg')
+  saveFrame(saved_frames_path + '/frame-' + str(frameCount) + '.jpg')

@@ -4,6 +4,7 @@ from datetime import date
 root_dir = os.path.abspath(os.path.dirname(__file__))
 # source image. swap this out.
 file_name = 'tokyo'
+saved_frames_path = 'frames/' + str(file_name) + '/' + str(date.today())
 img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
 width = img.width
 height = img.height
@@ -43,7 +44,7 @@ def draw():
 
   if x == width and y == height:
     # done
-    saveFrame('final.jpg')
+    saveFrame(saved_frames_path + '/final-frame.jpg')
     noLoop()
   else:
     if x < width:
@@ -54,5 +55,4 @@ def draw():
 
 
 def mouseClicked():
-  saveFrame('frames/' + str(file_name) + '/' + str(date.today()) + '/frame-' +
-            str(frameCount) + '.jpg')
+  saveFrame(saved_frames_path + '/frame-' + str(frameCount) + '.jpg')
