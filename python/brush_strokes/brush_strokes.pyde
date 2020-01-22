@@ -67,28 +67,18 @@ def init_new_stroke():
   y4 = y1 + random(-s_length, s_length)
 
   # mark node (and surrounding nodes) as 'visited'
-  if random_node_index - width > -1:
-    unvisited_nodes.pop(random_node_index - width)
+  pop_node_at_index(random_node_index - width)
+  pop_node_at_index(random_node_index - 1)
+  pop_node_at_index(random_node_index)
+  pop_node_at_index(random_node_index + 1)
+  pop_node_at_index(random_node_index + width)
+
+
+def pop_node_at_index(i):
+  if i > -1 and i < len(unvisited_nodes):
+    unvisited_nodes.pop(i)
   else:
-    print('attempted to pop: ' + str(random_node_index - width) +
-          ' out of range')
-  if random_node_index - 1 > -1:
-    unvisited_nodes.pop(random_node_index - 1)
-  else:
-    print('attempted to pop: ' + str(random_node_index - 1) + ' out of range')
-  if random_node_index > -1 and random_node_index < len(unvisited_nodes):
-    unvisited_nodes.pop(random_node_index)
-  else:
-    print('attempted to pop: ' + str(random_node_index) + ' out of range')
-  if random_node_index + 1 < len(unvisited_nodes):
-    unvisited_nodes.pop(random_node_index + 1)
-  else:
-    print('attempted to pop: ' + str(random_node_index + 1) + ' out of range')
-  if random_node_index + width < len(unvisited_nodes):
-    unvisited_nodes.pop(random_node_index + width)
-  else:
-    print('attempted to pop: ' + str(random_node_index + width) +
-          ' out of range')
+    print('attempted to pop: ' + str(i) + ' out of range')
 
 
 def draw():
