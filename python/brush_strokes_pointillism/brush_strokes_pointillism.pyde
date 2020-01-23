@@ -9,7 +9,7 @@ img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
 width = img.width
 height = img.height
 
-diameter = 16
+diameter = int(random(12, 24))
 radius = diameter / 2
 
 unvisited_nodes = []
@@ -37,7 +37,7 @@ def setup():
 
 
 def draw():
-  global img, diameter
+  global img, diameter, radius
 
   smooth()
 
@@ -52,6 +52,8 @@ def draw():
 
   # draw an ellipse at that location with that color
   fill(col, 100)
+  diameter = int(random(12, 24))
+  radius = diameter / 2
   ellipse(x, y, diameter, diameter)
 
   # mark node (and surrounding nodes) as 'visited'
