@@ -6,7 +6,7 @@ root_dir = os.path.abspath(os.path.dirname(__file__))
 file_name = 'tokyo'
 saved_frames_path = 'frames/' + str(file_name) + '/' + str(date.today())
 img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
-extent = 75
+extent = 1
 width = int(img.width / extent) * extent
 height = int(img.height / extent) * extent
 
@@ -18,17 +18,22 @@ def setup():
   noStroke()
   frameRate(240)
 
+  # instant
+  for x in range(0, width, extent):
+    for y in range(0, height, extent):
+      get_local_popular_color(x, y)
+
 
 def get_local_popular_color(start_x, start_y):
   color_counts = {}
   most_popular_color = None
   most_popular_color_count = 0
-  for x in range(start_x, start_x + extent + 1):
-    if x >= width:
-      break
-    for y in range(start_y, start_y + extent + 1):
-      if y >= height:
-        break
+  for x in range(start_x, start_x + extent):
+    # if x >= width:
+    #   break
+    for y in range(start_y, start_y + extent):
+      # if y >= height:
+      #   break
       node_color = img.get(x, y)
       if color_counts.get(node_color) is not None:
         color_counts[node_color] += 1
@@ -38,26 +43,30 @@ def get_local_popular_color(start_x, start_y):
       else:
         color_counts[node_color] = 1
 
-  if most_popular_color is not None:
-    fill(most_popular_color)
-    square(start_x, start_y, extent)
+  # no two colors were the same
+  if most_popular_color == None:
+    most_popular_color = img.get(int(start_x + extent / 2),
+                                 int(start_y + extent / 2))
+
+  fill(most_popular_color)
+  square(start_x, start_y, extent)
 
 
 def draw():
-  global x, y, extent
+  global x, y
 
-  get_local_popular_color(x, y)
+  # get_local_popular_color(x, y)
 
-  if x >= width and y >= height:
-    # done
-    saveFrame(saved_frames_path + '/final.jpg')
-    noLoop()
-  else:
-    if x < width:
-      x += extent
-    else:
-      x = 0
-      y += extent
+  # if x >= width and y >= height:
+  #   # done
+  #   saveFrame(saved_frames_path + '/final.jpg')
+  #   noLoop()
+  # else:
+  #   if x < width:
+  #     x += extent
+  #   else:
+  #     x = 0
+  #     y += extent
 
 
 def mouseClicked():

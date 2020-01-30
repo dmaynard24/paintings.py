@@ -16,6 +16,13 @@ def setup():
   size(width, height)  # set size to the size of your source image
   frameRate(240)
 
+  # instant
+  # for x in range(0, width):
+  #   for y in range(0, height):
+  #     node_color = img.get(x, y)
+  #     stroke(node_color)
+  #     point(x, y)
+
 
 def draw():
   global x, y
