@@ -9,7 +9,7 @@ img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
 width = img.width
 height = img.height
 
-x = y = 1
+x = y = 0
 
 
 def setup():
@@ -32,7 +32,7 @@ def draw():
     if x < width:
       x += 1
     else:
-      x = 1
+      x = 0
       y += 1
 
 
