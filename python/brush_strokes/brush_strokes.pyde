@@ -4,7 +4,7 @@ from datetime import date
 root_dir = os.path.abspath(os.path.dirname(__file__))
 
 # source image. swap this out.
-file_name = 'rodeo'
+file_name = 'husky'
 saved_frames_path = 'frames/' + str(file_name) + '/' + str(date.today())
 img = loadImage(root_dir + '\\assets\\img\\' + str(file_name) + '.jpg')
 width = img.width
