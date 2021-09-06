@@ -7,17 +7,5 @@
   "python.linting.pylintEnabled": false,
   "python.linting.enabled": true,
   "python.formatting.provider": "yapf",
-  "python.formatting.yapfArgs": ["--style", "{indent_width: 2}"],
-  "vscode_custom_css.imports": [
-    "file:///c:/Users/davem/.vscode/extensions/webrender.synthwave-x-fluoromachine-0.0.9/synthwave-x-fluoromachine.css",
-    "file:///c:/repos/project-euler/.vscode/theme-overrides.css"
-  ],
-  "workbench.colorCustomizations": {
-    "scrollbarSlider.background": "#9963ff16",
-    "scrollbarSlider.hoverBackground": "#9963ff16",
-    "scrollbarSlider.activeBackground": "#9963ff33"
-    // "sideBar.background": "#100c0f",
-    // "editor.background": "#100c0f"
-    // "activityBar.background": "#200933"
-  }
+  "python.formatting.yapfArgs": ["--style", "{indent_width: 2}"]
 }
